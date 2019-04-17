@@ -8,6 +8,7 @@ const PokemonSelector = (props) => {
 
   function handleChange(event) {
     props.handlePokemonSelected(event.target.value)
+
   }
 
 

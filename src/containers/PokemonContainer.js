@@ -8,9 +8,12 @@ class PokemonContainer extends Component {
     this.state = {
       allPokemon: null,
       selectedPokemonUrl: null,
-      pokemon: null
+      pokemon: null,
+      species: null
     };
     this.handlePokemonSelected = this.handlePokemonSelected.bind(this);
+    this.handleSpecies = this.handleSpecies.bind(this);
+
   }
   componentDidMount(){
     const url ="https://pokeapi.co/api/v2/pokemon/?limit=151";
@@ -37,9 +40,33 @@ class PokemonContainer extends Component {
       const jsonString = request.responseText;
       const data = JSON.parse(jsonString);
       this.setState({pokemon:data})
+      this.handleSpecies();
     });
     request.send();
   }
+
+
+
+  handleSpecies(){
+    const url = this.state.pokemon.species.url;
+    const request = new XMLHttpRequest();
+    request.open('GET', url);
+
+    request.addEventListener("load", () => {
+      if (request.status !== 200) return;
+      const jsonString = request.responseText;
+      const data = JSON.parse(jsonString);
+      this.setState({species:data})
+
+    });
+    request.send();
+  }
+
+  /* allPokemon.map url
+    for each url
+      fetch pokemon data
+      this.setState prevState add[...]
+      */
 
   render(){
     return(
@@ -47,10 +74,12 @@ class PokemonContainer extends Component {
         <PokemonSelector
           handlePokemonSelected={this.handlePokemonSelected}
           allPokemon = {this.state.allPokemon}
+          handleSpecies={this.handleSpecies}
           hi="hi"
         />
         <PokemonDetail
           pokemon = {this.state.pokemon}
+          species = {this.state.species}
         />
       </div>
     )
