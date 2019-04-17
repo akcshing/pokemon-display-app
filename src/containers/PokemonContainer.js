@@ -2,6 +2,7 @@ import React, {Component, Fragment} from "react";
 import PokemonDetail from "../components/PokemonDetail"
 import PokemonSelector from "../components/PokemonSelector"
 import TypeSelector from "../components/TypeSelector"
+import TypeResults from "../components/TypeResults"
 
 class PokemonContainer extends Component {
   constructor(props){
@@ -11,14 +12,16 @@ class PokemonContainer extends Component {
       selectedPokemonUrl: null,
       pokemon: null,
       species: null,
-      types: null
+      types: null,
+      typePokemon: null
     };
     this.handlePokemonSelected = this.handlePokemonSelected.bind(this);
     this.handleSpecies = this.handleSpecies.bind(this);
+    this.handleType = this.handleType.bind(this);
 
   }
   componentDidMount(){
-    const url ="https://pokeapi.co/api/v2/pokemon/?limit=151";
+    const url ="https://pokeapi.co/api/v2/pokemon/?limit=951";
     const request = new XMLHttpRequest();
     request.open('GET', url);
 
@@ -54,11 +57,26 @@ class PokemonContainer extends Component {
       const jsonString = request.responseText;
       const data = JSON.parse(jsonString);
       this.setState({pokemon:data})
+      this.setState({typePokemon: ""});
       this.handleSpecies();
+
     });
     request.send();
   }
 
+  handleType(url){
+    const request = new XMLHttpRequest();
+    request.open('GET', url);
+
+    request.addEventListener("load", () => {
+      if (request.status !== 200) return;
+      const jsonString = request.responseText;
+      const data = JSON.parse(jsonString);
+      this.setState({typePokemon:data.pokemon})
+      this.setState({pokemon: ""})
+    });
+    request.send();
+  }
 
 
   handleSpecies(){
@@ -76,6 +94,8 @@ class PokemonContainer extends Component {
     request.send();
   }
 
+
+
   /* allPokemon.map url
     for each url
       fetch pokemon data
@@ -91,12 +111,16 @@ class PokemonContainer extends Component {
           handleSpecies={this.handleSpecies}
           hi="hi"
         />
+        <TypeSelector
+          types = {this.state.types}
+          typeSelected = {this.handleType}
+        />
+        <TypeResults
+        results = {this.state.typePokemon}
+        />
         <PokemonDetail
           pokemon = {this.state.pokemon}
           species = {this.state.species}
-        />
-        <TypeSelector
-          types = {this.state.types}
         />
       </div>
     )
