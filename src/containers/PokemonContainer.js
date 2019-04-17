@@ -1,6 +1,7 @@
 import React, {Component, Fragment} from "react";
 import PokemonDetail from "../components/PokemonDetail"
 import PokemonSelector from "../components/PokemonSelector"
+import TypeSelector from "../components/TypeSelector"
 
 class PokemonContainer extends Component {
   constructor(props){
@@ -9,7 +10,8 @@ class PokemonContainer extends Component {
       allPokemon: null,
       selectedPokemonUrl: null,
       pokemon: null,
-      species: null
+      species: null,
+      types: null
     };
     this.handlePokemonSelected = this.handlePokemonSelected.bind(this);
     this.handleSpecies = this.handleSpecies.bind(this);
@@ -24,9 +26,21 @@ class PokemonContainer extends Component {
       if (request.status !== 200) return;
       const jsonString = request.responseText;
       const data = JSON.parse(jsonString);
-      this.setState({allPokemon:data.results})
+      this.setState({allPokemon: data.results})
     });
     request.send();
+
+    const typeUrl ="https://pokeapi.co/api/v2/type";
+    const typeRequest = new XMLHttpRequest();
+    typeRequest.open('GET', typeUrl);
+
+    typeRequest.addEventListener("load", () => {
+      if (typeRequest.status !== 200) return;
+      const jsonString = typeRequest.responseText;
+      const typeData = JSON.parse(jsonString);
+      this.setState({types: typeData.results})
+    });
+    typeRequest.send();
   }
 
   handlePokemonSelected(pkmnUrl){
@@ -80,6 +94,9 @@ class PokemonContainer extends Component {
         <PokemonDetail
           pokemon = {this.state.pokemon}
           species = {this.state.species}
+        />
+        <TypeSelector
+          types = {this.state.types}
         />
       </div>
     )
