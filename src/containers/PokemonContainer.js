@@ -33,7 +33,7 @@ class PokemonContainer extends Component {
     });
     request.send();
 
-    const typeUrl ="https://pokeapi.co/api/v2/type";
+    const typeUrl ="https://pokeapi.co/api/v2/type/?limit=18";
     const typeRequest = new XMLHttpRequest();
     typeRequest.open('GET', typeUrl);
 

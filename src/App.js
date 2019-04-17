@@ -6,7 +6,7 @@ class App extends Component {
   render() {
     return (
       <div>
-        <h1>Choose your pokemon</h1>
+        <h1>CHOOSE YOUR POKEMON</h1>
         <PokemonContainer />
       </div>
     );

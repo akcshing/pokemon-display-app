@@ -3,7 +3,7 @@ import React from "react";
 const PokemonSelector = (props) => {
   if (!props.allPokemon) return null;
   const options = props.allPokemon.map((pokemon, index) => {
-    return <option value={pokemon.url} key={index}>{pokemon.name}</option>
+    return <option value={pokemon.url} key={index}>{pokemon.name.toUpperCase()}</option>
   })
 
   function handleChange(event) {

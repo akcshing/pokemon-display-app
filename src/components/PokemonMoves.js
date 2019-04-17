@@ -4,7 +4,7 @@ const PokemonMoves = ({pokemon}) => {
 
 
   const moves = pokemon.moves.map((move, index)=>{
-    return <li key = {index}>{move.move.name}</li>
+    return <li key = {index}>{move.move.name.toUpperCase()}</li>
   })
 
   return (

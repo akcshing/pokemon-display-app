@@ -3,7 +3,7 @@ import React from "react";
 const TypeSelector = (props) => {
   if (!props.types) return null;
   const options = props.types.map((type, index) => {
-    return <option value={type.url} key={index}>{type.name}</option>
+    return <option value={type.url} key={index}>{type.name.toUpperCase()}</option>
   })
 
   function handleChange(event) {

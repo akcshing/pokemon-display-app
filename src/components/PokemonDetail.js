@@ -6,7 +6,7 @@ const PokemonDetail = ({pokemon, species}) => {
   if(!pokemon || !species) return null;
   return (
     <div id="pokemon-details">
-      <h2>#{pokemon.id} {pokemon.name}</h2>
+      <h2>#{pokemon.id} {pokemon.name.toUpperCase()}</h2>
       <img src={pokemon.sprites.front_default} height="200"></img>
       <img src={pokemon.sprites.front_shiny} height="200"></img>
       <PokemonBio species={species}/>
