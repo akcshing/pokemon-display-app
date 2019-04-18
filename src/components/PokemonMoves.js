@@ -1,4 +1,6 @@
 import React from "react";
+import Collapsible from 'react-collapsible';
+import "./components.css"
 
 const PokemonMoves = ({pokemon}) => {
 
@@ -9,10 +11,11 @@ const PokemonMoves = ({pokemon}) => {
 
   return (
     <div>
-    <h3>Moves</h3>
+    <Collapsible class = "collapse" trigger="Moves">
     <ul>
       {moves}
     </ul>
+    </Collapsible>
     </div>
   )
 
