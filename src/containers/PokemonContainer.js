@@ -3,6 +3,7 @@ import PokemonDetail from "../components/PokemonDetail"
 import PokemonSelector from "../components/PokemonSelector"
 import TypeSelector from "../components/TypeSelector"
 import TypeResults from "../components/TypeResults"
+import RandomPokemon from "../components/RandomPokemon"
 
 class PokemonContainer extends Component {
   constructor(props){
@@ -18,6 +19,7 @@ class PokemonContainer extends Component {
     this.handlePokemonSelected = this.handlePokemonSelected.bind(this);
     this.handleSpecies = this.handleSpecies.bind(this);
     this.handleType = this.handleType.bind(this);
+    this.selectRandom = this.selectRandom.bind(this);
 
   }
   componentDidMount(){
@@ -59,7 +61,6 @@ class PokemonContainer extends Component {
       this.setState({pokemon:data})
       this.setState({typePokemon: ""});
       this.handleSpecies();
-
     });
     request.send();
   }
@@ -94,15 +95,16 @@ class PokemonContainer extends Component {
     request.send();
   }
 
+  selectRandom(){
+    const allPokemon = this.state.allPokemon;
+    const randomPokemon = allPokemon[Math.floor(Math.random() * allPokemon.length)]
+    console.log(randomPokemon);
 
-
-  /* allPokemon.map url
-    for each url
-      fetch pokemon data
-      this.setState prevState add[...]
-      */
+    this.handlePokemonSelected(randomPokemon.url)
+  }
 
   render(){
+    console.log("rendering...");
     return(
       <div>
         <PokemonSelector
@@ -114,6 +116,9 @@ class PokemonContainer extends Component {
         <TypeSelector
           types = {this.state.types}
           typeSelected = {this.handleType}
+        />
+        <RandomPokemon
+        selectRandom={this.selectRandom}
         />
         <TypeResults
         results = {this.state.typePokemon}
