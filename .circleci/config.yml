@@ -1,9 +1,12 @@
  version: 2
  jobs:
    one:
+   
+     docker:
+       - image: 'circleci/python:2.7'
      steps:
        - checkout
-       - run: npm run-script build
+       - run: npm build
        - aws-s3/sync:
           from: build
           to: 's3://terraform-alex-shing'
