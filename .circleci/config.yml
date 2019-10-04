@@ -7,7 +7,7 @@ jobs:
       - image: 'circleci/python:2.7'
     steps:
       - checkout
-      - run: npm build
+      - run: npm run-script build
       - aws-s3/sync:
           from: build
           to: 's3://terraform-alex-shing'
