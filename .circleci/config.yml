@@ -1,14 +1,14 @@
- version: 2
- orbs:
-   aws-s3: circleci/aws-s3@1.0.11
- jobs:
-   build:
-     docker:
-       - image: 'circleci/python:2.7'
+version: 2.1
+orbs:
+  aws-s3: circleci/aws-s3@1.0.0
+jobs:
+  build:
+    docker:
+      - image: 'circleci/python:2.7'
+    steps:
      steps:
-       - checkout
-       - run: npm build
-       - aws-s3/sync:
+      - checkout
+      - run: npm build
+      - aws-s3/sync:
           from: build
           to: 's3://terraform-alex-shing'
-          overwrite: true
