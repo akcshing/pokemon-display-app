@@ -6,7 +6,6 @@ jobs:
     docker:
       - image: 'circleci/python:2.7'
     steps:
-     steps:
       - checkout
       - run: npm build
       - aws-s3/sync:
